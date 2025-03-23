@@ -4,10 +4,7 @@ import com.mbauspesalq.ecommerce.pagamentos.dto.PagamentoRequest
 import com.mbauspesalq.ecommerce.pagamentos.dto.PagamentoResponse
 import com.mbauspesalq.ecommerce.pagamentos.service.PagamentosService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/pagamentos")
@@ -15,6 +12,21 @@ class PagamentosController(
     private val service: PagamentosService
 ) {
     @PostMapping
-    fun novoPagamento(@RequestBody pagamentoRequest: PagamentoRequest): ResponseEntity<PagamentoResponse> =
-        service.novoPagamento(pagamentoRequest)
+    fun novoPagamento(@RequestBody pagamentoRequest: PagamentoRequest): ResponseEntity<PagamentoResponse> {
+        val pagamentoResponse = service.novoPagamento(pagamentoRequest)
+
+        return if (pagamentoResponse != null) {
+            ResponseEntity.status(201).body(pagamentoResponse)
+        } else {
+            ResponseEntity.unprocessableEntity().build()
+        }
+    }
+
+
+    @GetMapping("/{idCliente}")
+    fun buscaPagamentosDoCliente(@PathVariable idCliente: String): ResponseEntity<List<PagamentoResponse>> =
+        service.buscaPagamentosDoCliente(idCliente)
+            .takeIf { it.isNotEmpty() }
+            ?.let { ResponseEntity.ok(it) }
+            ?: ResponseEntity.notFound().build()
 }

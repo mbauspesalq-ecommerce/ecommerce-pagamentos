@@ -2,39 +2,48 @@ package com.mbauspesalq.ecommerce.pagamentos.repository
 
 import com.mbauspesalq.ecommerce.pagamentos.dto.EstadoPagamento
 import com.mbauspesalq.ecommerce.pagamentos.model.PagamentoTransacao
+import io.awspring.cloud.dynamodb.DynamoDbTemplate
 import org.springframework.stereotype.Repository
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient
 import software.amazon.awssdk.enhanced.dynamodb.Key
-import software.amazon.awssdk.enhanced.dynamodb.TableSchema
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest
+
 
 @Repository
 class PagamentoTransacaoRepository(
-    private val dynamoDbClient: DynamoDbClient
+    private val dynamoDbTemplate: DynamoDbTemplate
 ) {
-    private val enhancedClient: DynamoDbEnhancedClient = DynamoDbEnhancedClient.builder()
-        .dynamoDbClient(dynamoDbClient)
-        .build()
 
-    private val table =
-        enhancedClient.table("ecommerce-pagamentos", TableSchema.fromBean(PagamentoTransacao::class.java))
+    fun adicionaTransacao(transacao: PagamentoTransacao): PagamentoTransacao? {
+        dynamoDbTemplate.save(transacao)
 
-    fun save(transacao: PagamentoTransacao) {
-        table.putItem(transacao)
+        return transacao
     }
 
-    fun findById(idCliente: String, idCarrinho: String): PagamentoTransacao? {
-        return table.getItem(
+    fun buscaPeloIdClienteEIdCarrinho(idCliente: String, idCarrinho: String): PagamentoTransacao? {
+        return dynamoDbTemplate.load(
             Key.builder()
                 .partitionValue(idCliente)
                 .sortValue(idCarrinho)
-                .build()
+                .build(), PagamentoTransacao::class.java
         )
     }
 
-    fun updateEstado(idCliente: String, idCarrinho: String, estado: EstadoPagamento) {
-        val transacao = findById(idCliente, idCarrinho) ?: return
+    fun buscaTodosPeloIdCliente(idCliente: String): List<PagamentoTransacao> {
+        val key = Key.builder().partitionValue(idCliente).build()
+
+        val conditional = QueryConditional.keyEqualTo(key)
+
+        return dynamoDbTemplate.query(
+            QueryEnhancedRequest.builder()
+                .queryConditional(conditional).build(),
+            PagamentoTransacao::class.java
+        ).items().toList()
+    }
+
+    fun atualizaEstado(idCliente: String, idCarrinho: String, estado: EstadoPagamento) {
+        val transacao = buscaPeloIdClienteEIdCarrinho(idCliente, idCarrinho) ?: return
         transacao.estado = estado
-        save(transacao)
+        adicionaTransacao(transacao)
     }
 }

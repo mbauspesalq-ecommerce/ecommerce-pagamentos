@@ -10,9 +10,9 @@
     ]
   },
   "response": {
-    "status": 201,
+    "status": 200,
     "jsonBody": {
-      "mensagem": "Pagamento aprovado pelo parceiro"
+      "mensagem": "APROVADO"
     },
     "headers": {
       "Content-Type": "application/json"

@@ -6,7 +6,8 @@
   "response": {
     "status": 422,
     "jsonBody": {
-      "erro": "Tipo de pagamento não suportado"
+      "mensagem": "NEGADO",
+      "erro": "Tipo de pagamento indisponível."
     },
     "headers": {
       "Content-Type": "application/json"

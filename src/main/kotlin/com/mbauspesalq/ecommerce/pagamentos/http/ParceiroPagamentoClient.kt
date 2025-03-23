@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 
-@FeignClient(name = "parceiro-pagamento", url = "http://localhost:8080")
+@FeignClient(name = "parceiro-pagamento", url = "http://wiremock-gui:8080")
 interface ParceiroPagamentoClient {
     @PostMapping("/parceiro/autentica-pagamento")
     fun autenticaPagamento(@RequestBody request: ParceiroAutenticaPagamentoRequest): ResponseEntity<ParceiroPagamentoResponse>

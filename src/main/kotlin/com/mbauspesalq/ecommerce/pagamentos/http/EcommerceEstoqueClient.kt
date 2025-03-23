@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 
-@FeignClient(name = "ecommerce-estoque", url = "http://localhost:8000")
+@FeignClient(name = "ecommerce-estoque", url = "http://ecommerce-estoque:8000")
 interface EcommerceEstoqueClient {
 
     @PostMapping("/api/produtos/subtrai-estoque")

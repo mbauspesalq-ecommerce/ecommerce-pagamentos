@@ -13,7 +13,7 @@ class DynamoDbConfig {
     @Bean
     fun dynamoDbClient(): DynamoDbClient {
         return DynamoDbClient.builder()
-            .endpointOverride(URI.create("http://localhost:4566"))
+            .endpointOverride(URI.create("http://localstack:4566"))
             .region(Region.US_EAST_1) // ou a região que você está usando
             .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("test", "test")))
             .build()

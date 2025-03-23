@@ -41,3 +41,14 @@ services:
       - ./wiremock:/home/wiremock  # Mappings armazenados na pasta local
     environment:
       - WIREMOCK_OPTIONS=--verbose --global-response-templating
+
+  ecommerce-pagamentos:
+    build:
+      context: ./
+      dockerfile: Dockerfile  # Ajuste conforme o caminho do seu Dockerfile
+    container_name: ecommerce-pagamentos
+    ports:
+      - "8001:8001"  # Porta do microsserviço de pagamentos
+    depends_on:
+      - localstack
+      - aws-cli

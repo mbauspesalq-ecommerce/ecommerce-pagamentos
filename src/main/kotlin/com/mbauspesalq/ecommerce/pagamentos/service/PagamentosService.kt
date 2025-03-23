@@ -3,9 +3,9 @@ package com.mbauspesalq.ecommerce.pagamentos.service
 import com.mbauspesalq.ecommerce.pagamentos.dto.EstadoPagamento
 import com.mbauspesalq.ecommerce.pagamentos.dto.PagamentoRequest
 import com.mbauspesalq.ecommerce.pagamentos.dto.PagamentoResponse
-import com.mbauspesalq.ecommerce.pagamentos.feign.EcommerceEstoqueClient
-import com.mbauspesalq.ecommerce.pagamentos.feign.ParceiroPagamentoClient
-import com.mbauspesalq.ecommerce.pagamentos.feign.ProdutoEstoqueRequest
+import com.mbauspesalq.ecommerce.pagamentos.http.EcommerceEstoqueClient
+import com.mbauspesalq.ecommerce.pagamentos.http.ParceiroPagamentoClient
+import com.mbauspesalq.ecommerce.pagamentos.http.ProdutoEstoqueRequest
 import com.mbauspesalq.ecommerce.pagamentos.repository.PagamentoTransacaoRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

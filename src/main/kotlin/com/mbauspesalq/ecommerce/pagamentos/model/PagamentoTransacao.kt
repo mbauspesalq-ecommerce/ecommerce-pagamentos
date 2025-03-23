@@ -3,7 +3,7 @@ package com.mbauspesalq.ecommerce.pagamentos.model
 import com.mbauspesalq.ecommerce.pagamentos.annotation.NoArg
 import com.mbauspesalq.ecommerce.pagamentos.dto.EstadoPagamento
 import com.mbauspesalq.ecommerce.pagamentos.dto.PagamentoResponse
-import com.mbauspesalq.ecommerce.pagamentos.feign.ParceiroAutenticaPagamentoRequest
+import com.mbauspesalq.ecommerce.pagamentos.http.ParceiroAutenticaPagamentoRequest
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey

@@ -1,4 +1,4 @@
-package com.mbauspesalq.ecommerce.pagamentos.feign
+package com.mbauspesalq.ecommerce.pagamentos.http
 
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.ResponseEntity

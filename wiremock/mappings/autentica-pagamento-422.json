@@ -1,7 +1,14 @@
 {
+  "priority": 2,
   "request": {
     "method": "POST",
-    "url": "/parceiro/autentica-pagamento"
+    "url": "/parceiro/autentica-pagamento",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.tipo",
+        "notEqualTo": 1
+      }
+    ]
   },
   "response": {
     "status": 422,

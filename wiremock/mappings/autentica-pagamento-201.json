@@ -1,16 +1,16 @@
 {
+  "priority": 1,
   "request": {
     "method": "POST",
     "url": "/parceiro/autentica-pagamento",
     "bodyPatterns": [
       {
-        "matchesJsonPath": "$.tipo",
-        "equalToJson": "1"
+        "matchesJsonPath": "$.[?($.tipo == 1)]"
       }
     ]
   },
   "response": {
-    "status": 200,
+    "status": 201,
     "jsonBody": {
       "mensagem": "APROVADO"
     },

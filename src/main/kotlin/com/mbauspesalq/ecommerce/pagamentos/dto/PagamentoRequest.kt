@@ -17,17 +17,18 @@ data class PagamentoRequest(
     data class DadosPagamentoRequest(
         val tipo: Int,
         val parcelas: Int,
-        val badge: String,
+        val simbolo: String,
     )
 
-    fun toPagamentoTransacao(): PagamentoTransacao =
+    fun toPagamentoTransacao(estadoPagamento: EstadoPagamento): PagamentoTransacao =
         PagamentoTransacao(
             idCliente = idCliente,
             idCarrinho = idCarrinho,
+            estado = estadoPagamento,
             valor = calculaValorTotal(),
             parcelas = dadosPagamento.parcelas,
             tipo = dadosPagamento.tipo,
-            badge = dadosPagamento.badge
+            simbolo = dadosPagamento.simbolo
         )
 
     private fun calculaValorTotal(): Double = produtos.sumOf { it.precoUnitario * it.quantidadeRequerida }

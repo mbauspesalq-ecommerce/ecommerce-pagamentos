@@ -3,6 +3,7 @@ package com.mbauspesalq.ecommerce.pagamentos.model
 import com.mbauspesalq.ecommerce.pagamentos.annotation.NoArg
 import com.mbauspesalq.ecommerce.pagamentos.dto.EstadoPagamento
 import com.mbauspesalq.ecommerce.pagamentos.dto.PagamentoResponse
+import com.mbauspesalq.ecommerce.pagamentos.feign.ParceiroAutenticaPagamentoRequest
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey
@@ -21,7 +22,7 @@ data class PagamentoTransacao(
     var idCarrinho: String,
 
     @get:DynamoDbAttribute("estado")
-    var estado: EstadoPagamento = EstadoPagamento.CRIADO,
+    var estado: EstadoPagamento,
 
     @get:DynamoDbAttribute("valor")
     var valor: Double,
@@ -32,8 +33,8 @@ data class PagamentoTransacao(
     @get:DynamoDbAttribute("tipo")
     var tipo: Int,
 
-    @get:DynamoDbAttribute("badge")
-    var badge: String
+    @get:DynamoDbAttribute("simbolo")
+    var simbolo: String
 ) {
 
     fun toResponse(): PagamentoResponse =
@@ -43,6 +44,15 @@ data class PagamentoTransacao(
             valor = valor,
             parcelas = parcelas,
             estado = estado
+        )
+
+    fun toParceiroAutenticaPagamentoRequest(): ParceiroAutenticaPagamentoRequest =
+        ParceiroAutenticaPagamentoRequest(
+            nomeParceiro = "mbauspesalq-ecommerce",
+            valor = valor,
+            tipo = tipo,
+            parcelas = parcelas,
+            simbolo = simbolo
         )
 }
 

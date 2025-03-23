@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/parceiro/autentica-pagamento",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.tipo",
+        "equalToJson": "1"
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "jsonBody": {
+      "mensagem": "Pagamento aprovado pelo parceiro"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"  # Porta do LocalStack
+    environment:
+      - SERVICES=dynamodb
+      - DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - AWS_ACCESS_KEY_ID=local
+      - AWS_SECRET_ACCESS_KEY=local
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  wiremock:
+    image: ghcr.io/wiremock/wiremock-gui:latest
+    container_name: wiremock-gui
+    ports:
+      - "8083:8080"  # Interface da API WireMock
+      - "8084:8081"  # Interface GUI
+    volumes:
+      - ./wiremock:/home/wiremock  # Mappings armazenados na pasta local
+    environment:
+      - WIREMOCK_OPTIONS=--verbose --global-response-templating

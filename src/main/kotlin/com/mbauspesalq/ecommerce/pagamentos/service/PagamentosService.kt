@@ -43,12 +43,10 @@ class PagamentosService(
                 pagamentoTransacao.estado = EstadoPagamento.APROVADO
             } else {
                 pagamentoTransacao.estado = EstadoPagamento.NEGADO
-                // Devolvendo os produtos ao estoque caso o pagamento seja negado
                 ecommerceEstoqueClient.devolveEstoque(produtosRequeridos)
             }
         } catch (e: Exception) {
             pagamentoTransacao.estado = EstadoPagamento.NEGADO
-            // Devolvendo os produtos ao estoque em caso de erro na API de pagamento
             ecommerceEstoqueClient.devolveEstoque(produtosRequeridos)
         }
 

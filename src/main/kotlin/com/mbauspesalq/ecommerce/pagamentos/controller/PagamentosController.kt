@@ -12,15 +12,8 @@ class PagamentosController(
     private val service: PagamentosService
 ) {
     @PostMapping
-    fun novoPagamento(@RequestBody pagamentoRequest: PagamentoRequest): ResponseEntity<PagamentoResponse> {
-        val pagamentoResponse = service.novoPagamento(pagamentoRequest)
-
-        return if (pagamentoResponse != null) {
-            ResponseEntity.status(201).body(pagamentoResponse)
-        } else {
-            ResponseEntity.unprocessableEntity().build()
-        }
-    }
+    fun novoPagamento(@RequestBody pagamentoRequest: PagamentoRequest): ResponseEntity<Any> =
+        service.novoPagamento(pagamentoRequest)
 
 
     @GetMapping("/{idCliente}")

@@ -44,10 +44,14 @@ class PagamentosService(
             } else {
                 pagamentoTransacao.estado = EstadoPagamento.NEGADO
                 ecommerceEstoqueClient.devolveEstoque(produtosRequeridos)
+                repository.adicionaTransacao(pagamentoTransacao)
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Pagamento negado")
             }
         } catch (e: Exception) {
             pagamentoTransacao.estado = EstadoPagamento.NEGADO
             ecommerceEstoqueClient.devolveEstoque(produtosRequeridos)
+            repository.adicionaTransacao(pagamentoTransacao)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Pagamento negado")
         }
 
         return ResponseEntity.ok(repository.adicionaTransacao(pagamentoTransacao)?.toResponse())

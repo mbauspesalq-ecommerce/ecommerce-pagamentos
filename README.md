@@ -1,4 +1,4 @@
-# Microsserviço ecommerce-pagamentos
+# Microsserviço mbauspesalq-ecommerce-pagamentos
 
 ## Objetivo
 
@@ -142,7 +142,7 @@ de pagamento e estoque do ecommerce.
 
 Para isso, deveremos baixar o docker-compose.yml do link: [TBD]
 
-### Executando com Docker local
+### Executando com Docker local - somente esse microsserviço
 
 Obs.: para que o ecommerce funcione, você precisará subir a aplicação ecommerce-estoque na porta
 8000: https://github.com/mbauspesalq-ecommerce/ecommerce-estoque.
